@@ -1,0 +1,7 @@
+# Inference API only — keep the ml-api image small (no training stack).
+fastapi
+uvicorn
+mlflow
+numpy
+pandas
+scikit-learn

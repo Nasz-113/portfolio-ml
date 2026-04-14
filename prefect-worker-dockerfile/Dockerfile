@@ -5,8 +5,8 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY run_server.py ./
+COPY ml_orchestration.py ./
 
 ENV MLFLOW_TRACKING_URI=http://mlflow:5000
 
-CMD [ "uvicorn", "run_server:app", "--host", "0.0.0.0", "--port", "8000" ]
+CMD [ "" ]

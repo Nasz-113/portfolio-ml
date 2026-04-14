@@ -1,0 +1,16 @@
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v3.10.0
+    ports:
+      - "5000:5000"
+    volumes:
+      - /mlflow
+    command: ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000"]
+  prefect-server:
+    image: prefecthq/prefect:3-latest
+    ports:
+      - "4200:4200"
+    command: ["prefect", "server", "start", "--host", "0.0.0.0"]
+  prefect-worker:
+    image: prefecthq/prefect:3-latest
+    command: ["prefect", "worker", "start"]
