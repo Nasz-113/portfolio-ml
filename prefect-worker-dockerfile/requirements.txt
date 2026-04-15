@@ -1,4 +1,0 @@
-prefect
-mlflow
-pandas
-scikit-learn
