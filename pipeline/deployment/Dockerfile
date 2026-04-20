@@ -5,8 +5,8 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ml_orchestration.py ./
+COPY flows/ .
 
 ENV MLFLOW_TRACKING_URI=http://mlflow:5000
 
-CMD [ "" ]
+CMD [ "python3", "flows/deploy.py" ]
