@@ -9,6 +9,7 @@ from prefect import flow, task
 import mlflow
 from sklearn.pipeline import Pipeline
 import json, tempfile
+import os
 
 if os.environ.get("MLFLOW_TRACKING_URI"):
     mlflow.set_tracking_uri(os.environ.get("MLFLOW_TRACKING_URI"))
@@ -20,7 +21,7 @@ if mlflow.active_run() is not None:
 # Load and clean data
 @task
 def load_data():
-    playerStats = pd.read_csv("/home/nas/portfolio/portfolio-ml/data/playerStats.csv")
+    playerStats = pd.read_csv("/data/playerStats.csv")
     playerStats.drop(columns=["Player Name", "Team"],inplace=True)
     X=playerStats.drop(columns=["Position"])
     y=playerStats["Position"]

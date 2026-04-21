@@ -15,4 +15,4 @@ Learning full process of MLOps using various open source tools.
 1. MlFlow:              mlflow server (in pipeline/flows)
 2. Prefect Server:      prefect server start (in pipeline/flows)
 3. Prefect Deployment:  python3 deploy.py (in pipeline/flows)
-4. FastAPI:             uvicorn --host 0.0.0.0 --port 8000 main:app
+4. FastAPI:             uvicorn --host 0.0.0.0 --port 8000 --env-file .env main:app

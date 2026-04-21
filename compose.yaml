@@ -1,16 +1,42 @@
+name: portfolio-ml
+
 services:
+  ml-api:
+    image: ml-api:latest
+    depends_on:
+      - mlflow
+    ports: 
+      - "8000:8000"
+    networks: 
+      - ml-network
+  
+  ml-pipeline:
+    image: ml-pipeline:latest
+    depends_on:
+      - mlflow
+      - prefect-server
+    networks:
+      - ml-network
+    volumes:
+      - ./data:/data
+
   mlflow:
-    image: ghcr.io/mlflow/mlflow:v3.10.0
+    image: ghcr.io/mlflow/mlflow
+    command: mlflow server --host 0.0.0.0 --port 5000 --allowed-hosts "*"
     ports:
       - "5000:5000"
-    volumes:
-      - /mlflow
-    command: ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000"]
+    networks:
+      - ml-network
+    # volumes:
+    #   - ./mlflow:/mlflow
+
   prefect-server:
     image: prefecthq/prefect:3-latest
+    command: prefect server start --host 0.0.0.0
     ports:
       - "4200:4200"
-    command: ["prefect", "server", "start", "--host", "0.0.0.0"]
-  prefect-worker:
-    image: prefecthq/prefect:3-latest
-    command: ["prefect", "worker", "start"]
+    networks:
+      - ml-network
+
+networks:
+  ml-network:
