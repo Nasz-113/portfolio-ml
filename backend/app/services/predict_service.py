@@ -10,7 +10,14 @@ if os.environ.get("MLFLOW_TRACKING_URI"):
     mlflow.set_tracking_uri(os.environ.get("MLFLOW_TRACKING_URI"))
 
 model_uri = os.environ.get("ARTIFACT_URI")
-model = mlflow.pyfunc.load_model(model_uri)
+for i in range(5):
+    try:
+        model = mlflow.pyfunc.load_model(model_uri)
+        break
+    except:
+        if i < 5:
+            time.sleep(5)
+        continue
 
 def load_label_map_from_run(artifact_uri: str) -> dict[int, str]:
     # Download artifact logged at artifact_path="metadata", file name "label_map.json"
