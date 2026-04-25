@@ -1,7 +1,7 @@
 import os
 import mlflow
 import pandas as pd
-import json, tempfile
+import json, tempfile, time
 from pathlib import Path
 from schemas.predict_input import PredictInput
 from schemas.predict_output import PredictOutput
